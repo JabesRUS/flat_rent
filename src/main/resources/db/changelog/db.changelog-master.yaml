@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create-apartment.xml
+  - include:
+      file: db/changelog/create-advert.xml
+  - include:
+      file: db/changelog/create-client.xml
+  - include:
+      file: db/changelog/create-booking.xml
