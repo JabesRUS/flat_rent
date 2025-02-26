@@ -14,7 +14,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="end_date" type="date">
-                <constraints nullable="false"/>
+                <constraints nullable="false" />
             </column>
             <column name="client_id" type="integer">
                 <constraints nullable="false" foreignKeyName="client_id_fk"
@@ -28,6 +28,41 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+    </changeSet>
+
+    <changeSet id="202502261155" author="jabes">
+        <!-- Добавляем функцию и триггер для вычисления в столбце total_price -->
+        <sql>
+            create or replace function calc_total_price()
+            returns trigger
+            language plpgsql
+            as $$
+                begin
+                    NEW.total_price := (select (new.end_date - new.start_date) * a.price
+                    from advert a
+                    where new.advert_id = a.id);
+                    return new;
+                end;
+            $$;
+        </sql>
+
+        <sql>
+            create trigger booking_calc_total_price_trigger
+            before insert or update on booking
+            for each row execute function calc_total_price();
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="202502261320" author="jabes">
+        <!-- Добавляем constraint для проверки, что даты разные -->
+        <sql>
+            alter table booking
+            add constraint check_dates
+            check(end_date > start_date);
+        </sql>
+
     </changeSet>
 
 </databaseChangeLog>
