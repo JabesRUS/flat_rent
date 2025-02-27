@@ -77,28 +77,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <!-- Добавляем в booking функцию и триггер для вычисления в столбце total_price -->
-        <createProcedure>
-            create or replace function calc_total_price()
-            returns trigger
-            language plpgsql
-            as $$
-                begin
-                    NEW.total_price := (select (new.end_date - new.start_date) * a.price
-                    from advert a
-                    where new.advert_id = a.id);
-                    return new;
-                end;
-            $$;
-        </createProcedure>
-
-        <sql>
-            create trigger booking_calc_total_price_trigger
-            before insert or update on booking
-            for each row execute function calc_total_price();
-        </sql>
-
         <!-- Добавляем в booking constraint для проверки, что даты разные -->
         <sql>
             alter table booking
