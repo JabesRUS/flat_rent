@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,14 +20,18 @@ public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false)
+
+    @Column(name = "city", nullable = false)
     private String city;
-    @Column(nullable = false)
+
+    @Column(name = "street", nullable = false)
     private String street;
-    @Column(nullable = false)
+
+    @Column(name = "house_number", nullable = false)
     private String houseNumber;
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private RoomCount roomCount;
+    private ApartmentType apartmentType;
 
 }

@@ -1,6 +1,6 @@
 package com.javaacademy.flat_rent.entity;
 
-public enum RoomCount {
+public enum ApartmentType {
     ONLY_ROOM,
     ONE_ROOM,
     TWO_ROOM,

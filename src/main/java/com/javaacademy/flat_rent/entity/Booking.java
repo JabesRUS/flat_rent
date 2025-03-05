@@ -18,22 +18,24 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Data
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false)
+
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
-    @Column(nullable = false)
+
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
-    @OneToOne
-    @JoinColumn(name = "client_id", nullable = false)
-    private Client client;
-    @OneToOne
-    @JoinColumn(name = "advert_id", nullable = false)
-    private Advert advert;
-    @Column
+
+    @Column(name = "client_id", nullable = false)
+    private Integer clientId;
+
+    @Column(name = "advert_id", nullable = false)
+    private Integer advertId;
+
+    @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
 }

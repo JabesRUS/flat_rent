@@ -17,20 +17,22 @@ import java.math.BigDecimal;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Data
 public class Advert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false)
+
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
-    @Column(nullable = false)
+
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive;
-    @OneToOne
-    @JoinColumn(name = "apartment_id", nullable = false)
-    private Apartment apartment;
-    @Column(nullable = false)
+
+    @Column(name = "apartment_id", nullable = false)
+    private Integer apartmentId;
+
+    @Column(name = "description", nullable = false)
     private String description;
 
 }
