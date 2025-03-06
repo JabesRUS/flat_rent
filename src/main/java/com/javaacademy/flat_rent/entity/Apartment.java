@@ -7,9 +7,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -32,5 +36,9 @@ public class Apartment {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ApartmentType apartmentType;
+
+    @OneToMany(mappedBy = "apartment")
+    @ToString.Exclude
+    private List<Advert> adverts;
 
 }

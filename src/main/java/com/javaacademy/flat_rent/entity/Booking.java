@@ -5,6 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,11 +31,13 @@ public class Booking {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @Column(name = "client_id", nullable = false)
-    private Integer clientId;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
-    @Column(name = "advert_id", nullable = false)
-    private Integer advertId;
+    @ManyToOne
+    @JoinColumn(name = "advert_id")
+    private Advert advert;
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
