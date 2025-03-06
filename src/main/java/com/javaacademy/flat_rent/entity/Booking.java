@@ -5,9 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +19,8 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +32,15 @@ public class Booking {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @Column(name = "client_id", nullable = false)
-    private Integer clientId;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    @ToString.Exclude
+    private Client client;
 
-    @Column(name = "advert_id", nullable = false)
-    private Integer advertId;
+    @ManyToOne
+    @JoinColumn(name = "advert_id")
+    @ToString.Exclude
+    private Advert advert;
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
