@@ -13,7 +13,7 @@ public class ApartmentService {
     private final ApartmentRepository apartmentRepository;
     private final ApartmentMapper apartmentMapper;
 
-    public ApartmentDto save(ApartmentDto apartmentDto){
+    public ApartmentDto save(ApartmentDto apartmentDto) {
         Apartment entity = apartmentRepository.save(apartmentMapper.toEntity(apartmentDto));
 
         return apartmentMapper.toDto(entity);

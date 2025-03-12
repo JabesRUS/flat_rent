@@ -13,7 +13,7 @@ public class AdvertService {
     private final AdvertRepository advertRepository;
     private final AdvertMapper advertMapper;
 
-    public AdvertDtoRsp save(AdvertDtoRq advertDtoRq){
+    public AdvertDtoRsp save(AdvertDtoRq advertDtoRq) {
         return advertMapper.toDtoRsp(advertRepository.save(advertMapper.toEntity(advertDtoRq)));
     }
 }

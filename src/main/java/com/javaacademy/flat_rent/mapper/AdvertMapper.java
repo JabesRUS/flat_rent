@@ -24,7 +24,7 @@ public abstract class AdvertMapper {
     public abstract Advert toEntity(AdvertDtoRq dto);
 
     @Named("getApartment")
-    protected Apartment getApartment(Integer apartmentId){
+    protected Apartment getApartment(Integer apartmentId) {
         return apartmentRepository.findById(apartmentId).orElseThrow();
     }
 
@@ -32,7 +32,7 @@ public abstract class AdvertMapper {
     public abstract AdvertDtoRq toDto(Advert entity);
 
     @Named("getApartmentId")
-    protected Integer getApartmentId(Apartment apartment){
+    protected Integer getApartmentId(Apartment apartment) {
         return apartment.getId();
     }
 
@@ -40,7 +40,7 @@ public abstract class AdvertMapper {
     public abstract AdvertDtoRsp toDtoRsp(Advert entity);
 
     @Named("getApartmentDto")
-    protected ApartmentDto getApartmentDto(Apartment apartment){
+    protected ApartmentDto getApartmentDto(Apartment apartment) {
         return apartmentMapper.toDto(apartment);
     }
 }
