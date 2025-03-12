@@ -1,7 +1,5 @@
 package com.javaacademy.flat_rent;
 
-import com.javaacademy.flat_rent.dto.BookingDtoRq;
-import com.javaacademy.flat_rent.dto.BookingDtoRsp;
 import com.javaacademy.flat_rent.service.AdvertService;
 import com.javaacademy.flat_rent.service.ApartmentService;
 import com.javaacademy.flat_rent.service.BookingService;
@@ -10,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class FlatRentApplication {
