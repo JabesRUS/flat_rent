@@ -41,10 +41,10 @@ public class FlatRentApplication {
 //        AdvertDtoRsp saveAdv = advertService.save(advertDtoRq);
 //        System.out.println(saveAdv);
 
-        BookingDtoRq bookingDtoRq = new BookingDtoRq(null,
-                LocalDate.parse("2025-02-13"), LocalDate.parse("2025-02-17"), 1, 2);
-
-        BookingDtoRsp bookingDtoRsp = bookingService.save(bookingDtoRq);
-        System.out.println(bookingDtoRsp);
+//        BookingDtoRq bookingDtoRq = new BookingDtoRq(null,
+//                LocalDate.parse("2025-02-13"), LocalDate.parse("2025-02-17"), 1, 2);
+//
+//        BookingDtoRsp bookingDtoRsp = bookingService.save(bookingDtoRq);
+//        System.out.println(bookingDtoRsp);
     }
 }
