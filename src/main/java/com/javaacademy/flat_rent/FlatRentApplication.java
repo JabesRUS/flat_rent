@@ -35,7 +35,7 @@ public class FlatRentApplication {
 //        System.out.println(save);
 
         AdvertDtoRq advertDtoRq = new AdvertDtoRq(null,
-                BigDecimal.valueOf(7777), true, 3, "Огромная квартира");
+                BigDecimal.valueOf(888), true, 2, "Гигантская квартира");
         AdvertDtoRsp saveAdv = advertService.save(advertDtoRq);
         System.out.println(saveAdv);
     }

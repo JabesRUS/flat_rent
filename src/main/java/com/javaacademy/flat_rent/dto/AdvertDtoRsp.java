@@ -12,10 +12,14 @@ import java.math.BigDecimal;
 public class AdvertDtoRsp {
 
     private Integer id;
+
     private BigDecimal price;
+
     @JsonProperty("is_active")
     private Boolean isActive;
-    private Apartment apartment;
+
+    private ApartmentDto apartment;
+
     private String description;
 
 }

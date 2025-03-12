@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface ClientMapper {
+public abstract class ClientMapper {
 
-    Client toEntity(ClientDto dto);
+    public abstract Client toEntity(ClientDto dto);
 
-    ClientDto toDto(Client entity);
+    public  abstract ClientDto toDto(Client entity);
 }

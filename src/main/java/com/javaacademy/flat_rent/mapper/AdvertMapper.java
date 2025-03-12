@@ -2,6 +2,7 @@ package com.javaacademy.flat_rent.mapper;
 
 import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.AdvertDtoRsp;
+import com.javaacademy.flat_rent.dto.ApartmentDto;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Apartment;
 import com.javaacademy.flat_rent.repository.ApartmentRepository;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AdvertMapper {
     @Autowired
     private ApartmentRepository apartmentRepository;
+    @Autowired
+    private ApartmentMapper apartmentMapper;
 
     @Mapping(target = "apartment", source = "apartmentId", qualifiedByName = "getApartment")
     @Mapping(target = "bookings", ignore = true)
@@ -33,5 +36,11 @@ public abstract class AdvertMapper {
         return apartment.getId();
     }
 
+    @Mapping(target = "apartment", source = "apartment", qualifiedByName = "getApartmentDto")
     public abstract AdvertDtoRsp toDtoRsp(Advert entity);
+
+    @Named("getApartmentDto")
+    protected ApartmentDto getApartmentDto(Apartment apartment){
+        return apartmentMapper.toDto(apartment);
+    }
 }
