@@ -22,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Apartment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +37,7 @@ public class Apartment {
     @Column(name = "house_number", nullable = false)
     private String houseNumber;
 
-    @Column(nullable = false)
+    @Column(name = "room_count", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ApartmentType apartmentType;
 
