@@ -1,9 +1,7 @@
 package com.javaacademy.flat_rent.mapper;
 
-import com.javaacademy.flat_rent.dto.AdvertDtoRsp;
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRsp;
-import com.javaacademy.flat_rent.dto.ClientDto;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.entity.Client;

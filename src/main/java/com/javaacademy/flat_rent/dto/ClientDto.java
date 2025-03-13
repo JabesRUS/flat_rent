@@ -1,6 +1,5 @@
 package com.javaacademy.flat_rent.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 

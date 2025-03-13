@@ -2,7 +2,6 @@ package com.javaacademy.flat_rent.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javaacademy.flat_rent.entity.ApartmentType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
