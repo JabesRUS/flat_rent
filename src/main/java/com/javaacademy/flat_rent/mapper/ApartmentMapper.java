@@ -7,10 +7,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class ApartmentMapper {
+public interface ApartmentMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "adverts", ignore = true)
-    public abstract Apartment toEntity(ApartmentDto dto);
+    Apartment toEntity(ApartmentDto dto);
 
-    public abstract ApartmentDto toDto(Apartment entity);
+    ApartmentDto toDto(Apartment entity);
 }

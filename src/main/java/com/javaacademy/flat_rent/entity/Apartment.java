@@ -35,7 +35,7 @@ public class Apartment {
     private String street;
 
     @Column(name = "house_number", nullable = false)
-    private String houseNumber;
+    private String house;
 
     @Column(name = "room_count", nullable = false)
     @Enumerated(value = EnumType.STRING)

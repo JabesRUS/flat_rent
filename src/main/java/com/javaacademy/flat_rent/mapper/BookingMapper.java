@@ -7,6 +7,8 @@ import com.javaacademy.flat_rent.dto.ClientDto;
 import com.javaacademy.flat_rent.entity.Advert;
 import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.entity.Client;
+import com.javaacademy.flat_rent.exception.AdvertNotFoundException;
+import com.javaacademy.flat_rent.exception.ClientNotFoundException;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
 import org.mapstruct.Mapper;
@@ -17,14 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
+uses = {AdvertMapper.class, ClientMapper.class})
 public abstract class BookingMapper {
     @Autowired
     private ClientRepository clientRepository;
-    @Autowired
-    private ClientMapper clientMapper;
-    @Autowired
-    private AdvertMapper advertMapper;
     @Autowired
     private AdvertRepository advertRepository;
 
@@ -35,25 +34,16 @@ public abstract class BookingMapper {
 
     @Named("getClient")
     protected Client getClient(Integer clientId) {
-        return clientRepository.findById(clientId).orElseThrow();
+        return clientRepository.findById(clientId)
+                .orElseThrow(() -> new ClientNotFoundException(clientId));
     }
 
     @Named("getAdvert")
     protected Advert getAdvert(Integer advertId) {
-        return advertRepository.findById(advertId).orElseThrow();
+        return advertRepository.findById(advertId)
+                .orElseThrow(() -> new AdvertNotFoundException(advertId));
     }
 
-    @Mapping(target = "client", source = "client", qualifiedByName = "getClientDto")
-    @Mapping(target = "advert", source = "advert", qualifiedByName = "getAdvertDtoRsp")
     public abstract BookingDtoRsp toDtoRsp(Booking entity);
 
-    @Named("getClientDto")
-    protected ClientDto getClientDto(Client client) {
-        return clientMapper.toDto(client);
-    }
-
-    @Named("getAdvertDtoRsp")
-    protected AdvertDtoRsp getAdvertDtoRsp(Advert advert) {
-        return advertMapper.toDtoRsp(advert);
-    }
 }
