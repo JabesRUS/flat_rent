@@ -1,14 +1,17 @@
 package com.javaacademy.flat_rent.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.javaacademy.flat_rent.entity.Client;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class BookingDtoRq {
 
     private Integer id;
@@ -22,8 +25,8 @@ public class BookingDtoRq {
     private LocalDate endDate;
 
     @NonNull
-    @JsonProperty("client_id")
-    private Integer clientId;
+    @JsonProperty("client")
+    private ClientDto client;
 
     @NonNull
     @JsonProperty("advert_id")
