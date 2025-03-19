@@ -11,7 +11,7 @@ public interface ApartmentMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "adverts", ignore = true)
-    Apartment toEntity(ApartmentDto dto);
+    Apartment toEntityWithRelation(ApartmentDto dto);
 
     ApartmentDto toDto(Apartment entity);
 }

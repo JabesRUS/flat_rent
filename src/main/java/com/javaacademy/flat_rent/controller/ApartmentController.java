@@ -4,6 +4,7 @@ package com.javaacademy.flat_rent.controller;
 import com.javaacademy.flat_rent.dto.ApartmentDto;
 import com.javaacademy.flat_rent.service.api.ApartmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +18,9 @@ public class ApartmentController {
     private final ApartmentService apartmentService;
 
     @PostMapping
-    public ApartmentDto createOrUpdate(@RequestBody ApartmentDto apartmentDto){
-        return apartmentService.save(apartmentDto);
+    public ResponseEntity<ApartmentDto> createOrUpdate(@RequestBody ApartmentDto apartmentDto){
+        return ResponseEntity.status(HttpStatus.CREATED).
+                body(apartmentService.save(apartmentDto));
     }
 
 }

@@ -2,10 +2,10 @@ package com.javaacademy.flat_rent;
 
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRsp;
-import com.javaacademy.flat_rent.service.impl.AdvertServiceImpl;
-import com.javaacademy.flat_rent.service.impl.ApartmentServiceImpl;
-import com.javaacademy.flat_rent.service.impl.BookingServiceImpl;
-import com.javaacademy.flat_rent.service.impl.ClientServiceImpl;
+import com.javaacademy.flat_rent.service.api.AdvertService;
+import com.javaacademy.flat_rent.service.api.ApartmentService;
+import com.javaacademy.flat_rent.service.api.BookingService;
+import com.javaacademy.flat_rent.service.api.ClientService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,10 +19,10 @@ public class FlatRentApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(FlatRentApplication.class, args);
 
-        ApartmentServiceImpl apartmentServiceImpl = context.getBean(ApartmentServiceImpl.class);
-        ClientServiceImpl clientServiceImpl = context.getBean(ClientServiceImpl.class);
-        AdvertServiceImpl advertServiceImpl = context.getBean(AdvertServiceImpl.class);
-        BookingServiceImpl bookingServiceImpl = context.getBean(BookingServiceImpl.class);
+//        ApartmentService apartmentServiceImpl = context.getBean(ApartmentService.class);
+//        ClientService clientServiceImpl = context.getBean(ClientService.class);
+//        AdvertService advertServiceImpl = context.getBean(AdvertService.class);
+//        BookingService bookingService = context.getBean(BookingService.class);
 
 //        ApartmentDto apartmentDto = new ApartmentDto(null,
 //                "СПБ",
@@ -51,7 +51,7 @@ public class FlatRentApplication {
 //        bookingDtoRq.setAdvertId(1);
 //        bookingDtoRq.setClientId(2);
 //
-//        BookingDtoRsp bookingDtoRsp = bookingServiceImpl.save(bookingDtoRq);
+//        BookingDtoRsp bookingDtoRsp = bookingService.save(bookingDtoRq);
 //        System.out.println(bookingDtoRsp);
     }
 }
