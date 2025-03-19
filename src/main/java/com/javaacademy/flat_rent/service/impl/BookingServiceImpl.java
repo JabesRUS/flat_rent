@@ -1,10 +1,15 @@
 package com.javaacademy.flat_rent.service.impl;
 
+import com.javaacademy.flat_rent.dto.AdvertDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
 import com.javaacademy.flat_rent.dto.BookingDtoRsp;
 import com.javaacademy.flat_rent.dto.ClientDto;
+import com.javaacademy.flat_rent.entity.Advert;
+import com.javaacademy.flat_rent.entity.Booking;
 import com.javaacademy.flat_rent.entity.Client;
+import com.javaacademy.flat_rent.exception.AdvertNotFoundException;
 import com.javaacademy.flat_rent.exception.ClientNotFoundException;
+import com.javaacademy.flat_rent.exception.DateRangeIntersectionException;
 import com.javaacademy.flat_rent.mapper.BookingMapper;
 import com.javaacademy.flat_rent.mapper.ClientMapper;
 import com.javaacademy.flat_rent.repository.AdvertRepository;
@@ -13,9 +18,12 @@ import com.javaacademy.flat_rent.repository.ClientRepository;
 import com.javaacademy.flat_rent.service.api.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,23 +36,55 @@ public class BookingServiceImpl implements BookingService {
 
 
     @Override
+    @Transactional
     public BookingDtoRsp save(BookingDtoRq bookingDtoRq) {
         ClientDto client = bookingDtoRq.getClient();
-        checkClient(client);
+
+        checkClient(client, bookingDtoRq);
+        checkDates(bookingDtoRq);
 
         BigDecimal totalPrice = calculateTotalPrice(bookingDtoRq);
-
-        return bookingMapper.toDtoRsp(bookingRepository.save(bookingMapper.toEntity(bookingDtoRq, totalPrice)));
+        Booking entity = bookingMapper.toEntity(bookingDtoRq, totalPrice);
+        Booking savedEntity = bookingRepository.save(entity);
+        BookingDtoRsp dtoRsp = bookingMapper.toDtoRsp(savedEntity);
+        return dtoRsp;
     }
 
-    private void checkClient(ClientDto clientDto) {
+        private void checkDates(BookingDtoRq bookingDtoRq) {
+        Integer advertId = bookingDtoRq.getAdvertId();
+        LocalDate startRequestDate = bookingDtoRq.getStartDate();
+        LocalDate endRequestDate = bookingDtoRq.getEndDate();
+//        Получаем объявление из БД
+        Advert advert = advertRepository.findById(advertId)
+                .orElseThrow(() -> new AdvertNotFoundException(advertId));
+//        Получаем список Bookings из advert
+        List<Booking> bookings = advert.getBookings();
+//      Получаем количество пересечений
+        long countIntersections = bookings.stream()
+                .filter(booking -> checkIntersections(booking.getStartDate(), booking.getEndDate(),
+                        startRequestDate, endRequestDate))
+                .count();
+
+        if (countIntersections > 0) {
+            throw new DateRangeIntersectionException(startRequestDate, endRequestDate);
+        }
+
+    }
+
+    private boolean checkIntersections(LocalDate startDateAdvert, LocalDate endDateAdvert,
+                                    LocalDate startRequestDate, LocalDate endRequestDate) {
+        return !startDateAdvert.isAfter(endRequestDate) && !startRequestDate.isAfter(endDateAdvert);
+    }
+
+    private void checkClient(ClientDto clientDto, BookingDtoRq bookingDtoRq) {
         Integer clientId = clientDto.getId();
 
         if (clientId != null) {
-            clientRepository.findById(clientId)
-                    .orElseThrow(() -> new ClientNotFoundException(clientId));
+            bookingDtoRq.setClient(clientMapper.toDto(clientRepository.findById(clientId)
+                    .orElseThrow(() -> new ClientNotFoundException(clientId))));
         } else {
-            clientRepository.save(clientMapper.toEntity(clientDto));
+            bookingDtoRq.setClient(clientMapper.toDto(clientRepository.save(clientMapper.toEntity(clientDto))));
+//            clientRepository.save(clientMapper.toEntity(clientDto));
         }
     }
 

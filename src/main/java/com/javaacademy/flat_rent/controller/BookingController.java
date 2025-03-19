@@ -1,6 +1,7 @@
 package com.javaacademy.flat_rent.controller;
 
 import com.javaacademy.flat_rent.dto.BookingDtoRq;
+import com.javaacademy.flat_rent.dto.BookingDtoRsp;
 import com.javaacademy.flat_rent.service.api.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,8 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<?> bookingApartment(@RequestBody BookingDtoRq bookingDtoRq) {
-
-        return ResponseEntity.status(HttpStatus.OK).build();
+        BookingDtoRsp bookingDtoRsp = bookingService.save(bookingDtoRq);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(bookingDtoRsp);
     }
 }

@@ -25,7 +25,7 @@ public abstract class BookingMapper {
     @Autowired
     private AdvertRepository advertRepository;
 
-    @Mapping(target = "client", source = "dtoRq.clientId", qualifiedByName = "getClient")
+//    @Mapping(target = "client", source = "dtoRq.clientId", qualifiedByName = "getClient")
     @Mapping(target = "advert", source = "dtoRq.advertId", qualifiedByName = "getAdvert")
     @Mapping(target = "totalPrice", source = "totalPrice")
     public abstract Booking toEntity(BookingDtoRq dtoRq, BigDecimal totalPrice);
