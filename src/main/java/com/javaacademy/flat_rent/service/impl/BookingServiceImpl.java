@@ -17,6 +17,8 @@ import com.javaacademy.flat_rent.repository.BookingRepository;
 import com.javaacademy.flat_rent.repository.ClientRepository;
 import com.javaacademy.flat_rent.service.api.BookingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +30,25 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
+    public static final int FIRST_PAGE = 0;
+    public static final int TWENTY_ENTRIES = 20;
+    public static final String ORDER_BY_PRICE = "email";
     private final BookingMapper bookingMapper;
     private final BookingRepository bookingRepository;
     private final AdvertRepository advertRepository;
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
 
+    @Override
+    public Page<BookingDtoRsp> getBookingsByEmail(String email, Integer page, Integer size) {
+        int numberPage = page == null ? FIRST_PAGE : page;
+        int sizePage = size == null ? TWENTY_ENTRIES : size;
+
+        PageRequest pageRequest = PageRequest.of(numberPage, sizePage);
+        Page<Booking> bookings= bookingRepository.findByClientEmail(email, pageRequest);
+        Page<BookingDtoRsp> bookingDtoRsp = bookings.map(booking -> bookingMapper.toDtoRsp(booking));
+        return bookingDtoRsp;
+    }
 
     @Override
     @Transactional
