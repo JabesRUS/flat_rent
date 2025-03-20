@@ -65,7 +65,7 @@ public class BookingServiceImpl implements BookingService {
         return dtoRsp;
     }
 
-        private void checkDates(BookingDtoRq bookingDtoRq) {
+    private void checkDates(BookingDtoRq bookingDtoRq) {
         Integer advertId = bookingDtoRq.getAdvertId();
         LocalDate startRequestDate = bookingDtoRq.getStartDate();
         LocalDate endRequestDate = bookingDtoRq.getEndDate();
@@ -88,7 +88,9 @@ public class BookingServiceImpl implements BookingService {
 
     private boolean checkIntersections(LocalDate startDateAdvert, LocalDate endDateAdvert,
                                     LocalDate startRequestDate, LocalDate endRequestDate) {
-        return !startDateAdvert.isAfter(endRequestDate) && !startRequestDate.isAfter(endDateAdvert);
+//        return !startDateAdvert.isAfter(endRequestDate) && !startRequestDate.isAfter(endDateAdvert);
+//        start1.isBefore(end2) && start2.isBefore(end1)
+        return startDateAdvert.isBefore(endRequestDate) && startRequestDate.isBefore(endDateAdvert);
     }
 
     private void checkClient(ClientDto clientDto, BookingDtoRq bookingDtoRq) {
@@ -97,10 +99,11 @@ public class BookingServiceImpl implements BookingService {
         if (clientId != null) {
             bookingDtoRq.setClient(clientMapper.toDto(clientRepository.findById(clientId)
                     .orElseThrow(() -> new ClientNotFoundException(clientId))));
-        } else {
-            bookingDtoRq.setClient(clientMapper.toDto(clientRepository.save(clientMapper.toEntity(clientDto))));
-//            clientRepository.save(clientMapper.toEntity(clientDto));
         }
+//        else {
+//            bookingDtoRq.setClient(clientMapper.toDto(clientRepository.save(clientMapper.toEntity(clientDto))));
+////            clientRepository.save(clientMapper.toEntity(clientDto));
+//        }
     }
 
     private BigDecimal calculateTotalPrice(BookingDtoRq dtoRq) {

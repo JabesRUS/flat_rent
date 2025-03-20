@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,9 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<BookingDtoRsp> bookingApartment(@RequestBody BookingDtoRq bookingDtoRq) {
+
         BookingDtoRsp bookingDtoRsp = bookingService.save(bookingDtoRq);
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(bookingDtoRsp);
     }
@@ -31,8 +35,10 @@ public class BookingController {
     public ResponseEntity<Page<BookingDtoRsp>> getBookingsByEmail(@RequestParam String email,
                                                                   @RequestParam(required = false) Integer page,
                                                                   @RequestParam(required = false) Integer size) {
+
         Page<BookingDtoRsp> bookingsByEmail = bookingService.getBookingsByEmail(email, page, size);
 
         return ResponseEntity.status(HttpStatus.OK).body(bookingsByEmail);
     }
+
 }

@@ -11,4 +11,5 @@ public interface BookingService {
     BookingDtoRsp save(BookingDtoRq bookingDtoRq);
 
     Page<BookingDtoRsp> getBookingsByEmail(String email, Integer page, Integer size);
+
 }

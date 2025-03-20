@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface ClientService {
     ClientDto save(ClientDto clientDto);
 
+    boolean deleteById(Integer id);
 }

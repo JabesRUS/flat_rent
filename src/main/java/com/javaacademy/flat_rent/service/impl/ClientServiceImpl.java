@@ -17,4 +17,9 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.toDto(clientRepository.save(clientMapper.toEntity(clientDto)));
     }
 
+    @Override
+    public boolean deleteById(Integer id) {
+        clientRepository.deleteById(id);
+        return !clientRepository.existsById(id);
+    }
 }
